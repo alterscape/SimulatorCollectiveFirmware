@@ -1,123 +1,83 @@
 #include <Wire.h>
-
-#define SLAVE_ADDRESS   0x35
-
-/*
- * SN74HC165N_shift_reg
- *
- * Program to shift in the bit values from a SN74HC165N 8-bit
- * parallel-in/serial-out shift register.
- *
- * This sketch demonstrates reading in 16 digital states from a
- * pair of daisy-chained SN74HC165N shift registers while using
- * only 4 digital pins on the Arduino.
- *
- * You can daisy-chain these chips by connecting the serial-out
- * (Q7 pin) on one shift register to the serial-in (Ds pin) of
- * the other.
- * 
- * Of course you can daisy chain as many as you like while still
- * using only 4 Arduino pins (though you would have to process
- * them 4 at a time into separate unsigned long variables).
- * 
-*/
-
-/* How many shift register chips are daisy-chained.
-*/
-#define NUMBER_OF_SHIFT_CHIPS   2
-
-/* Width of data (how many ext lines).
-*/
-#define DATA_WIDTH   NUMBER_OF_SHIFT_CHIPS * 8
-
-/* Width of pulse to trigger the shift register to read and latch.
-*/
-#define PULSE_WIDTH_USEC   5
+#include "I2CProtocol.h"
+#include "ShiftToButtons.h"
 
 /* Optional delay between shift register reads.
 */
 #define POLL_DELAY_MSEC   1
 
-/* You will need to change the "int" to "long" If the
- * NUMBER_OF_SHIFT_CHIPS is higher than 2.
-*/
-#define BYTES_VAL_T unsigned int
+int argsCnt = 0;                        // how many arguments were passed with given command
+Commands::I2CCommand requestedCmd = 0;  // which command was requested (if any)
 
-int ploadPin        = 10;  //8;  // Connects to Parallel load pin the 165
-int clockEnablePin  = 16; //9;  // Connects to Clock Enable pin the 165
-int dataPin         = 7;   //11; // Connects to the Q7 pin the 165
-int clockPin        = 8;  //12; // Connects to the Clock pin the 165
+uint8_t i2cArgs[I2C_MSG_ARGS_MAX];      // array to store args received from master
+int i2cArgsLen = 0;                     // how many args passed by master to given command
 
-BYTES_VAL_T pinValues;
-BYTES_VAL_T oldPinValues;
+uint8_t i2cResponse[I2C_RESP_LEN_MAX];  // array to store response
+int i2cResponseLen = 0;                 // response length
 
-/* This function is essentially a "shift-in" routine reading the
- * serial Data from the shift register chips and representing
- * the state of those pins in an unsigned integer (or long).
-*/
-BYTES_VAL_T read_shift_regs()
+ShiftButtons buttons = ShiftButtons();
+
+void loopI2C()
 {
-    long bitVal;
-    BYTES_VAL_T bytesVal = 0;
-
-    /* Trigger a parallel Load to latch the state of the data lines,
-    */
-    digitalWrite(clockEnablePin, HIGH);
-    digitalWrite(ploadPin, LOW);
-    delayMicroseconds(PULSE_WIDTH_USEC);
-    digitalWrite(ploadPin, HIGH);
-    digitalWrite(clockEnablePin, LOW);
-
-    /* Loop to read each bit value from the serial out line
-     * of the SN74HC165N.
-    */
-    for(int i = 0; i < DATA_WIDTH; i++)
-    {
-        bitVal = digitalRead(dataPin);
-
-        /* Set the corresponding bit in bytesVal.
-        */
-        bytesVal |= (bitVal << ((DATA_WIDTH-1) - i));
-
-        /* Pulse the Clock (rising edge shifts the next bit).
-        */
-        digitalWrite(clockPin, HIGH);
-        delayMicroseconds(PULSE_WIDTH_USEC);
-        digitalWrite(clockPin, LOW);
-    }
-
-    return(bytesVal);
-}
-
-/* Dump the list of zones along with their current status.
-*/
-void display_pin_values()
-{
-    Serial.print("Pin States:\r\n");
-
-    for(int i = 0; i < DATA_WIDTH; i++)
-    {
-        Serial.print("  Pin-");
-        Serial.print(i);
-        Serial.print(": ");
-
-        if((pinValues >> i) & 1)
-            Serial.print("HIGH");
-        else
-            Serial.print("LOW");
-
-        Serial.print("\r\n");
-    }
-
-    Serial.print("\r\n");
+  switch(requestedCmd)
+  {
+    case Commands::I2C_CMD_GET_BUTTONS:
+      i2cResponseLen = 0;
+      i2cResponseLen++;
+      i2cResponse[i2cResponseLen - 1] = buttons.pinValues >> 24 & 0xFF;
+      i2cResponseLen++;
+      i2cResponse[i2cResponseLen - 1] = buttons.pinValues >> 16 & 0xFF;
+      i2cResponseLen++;
+      i2cResponse[i2cResponseLen - 1] = buttons.pinValues >> 8 & 0xFF;
+      i2cResponseLen++;
+      i2cResponse[i2cResponseLen - 1] = buttons.pinValues & 0xFF;
+      break;
+    default:
+      // do nothing.
+      break;
+  }
+  requestedCmd = 0;
 }
 
 void requestEvent(){
-
+  Wire.write(i2cResponse, i2cResponseLen);
 }
 
 void receiveEvent(int bytesReceived){
+  int cmdRcvd = -1;
+  int argIndex = -1; 
+  argsCnt = 0;
 
+  if (Wire.available()){
+    cmdRcvd = Wire.read();                 // receive first byte - command assumed
+    while(Wire.available()){               // receive rest of tramsmission from master assuming arguments to the command
+      if (argIndex < I2C_MSG_ARGS_MAX){
+        argIndex++;
+        i2cArgs[argIndex] = Wire.read();
+      }
+      else{
+        ; // implement logging error: "too many arguments"
+      }
+      argsCnt = argIndex+1;  
+    }
+  }
+  else{
+    // implement logging error: "empty request"
+    return;
+  }
+  // validating command is supported by slave
+  int fcnt = -1;
+  for (int i = 0; i < sizeof(supportedI2Ccmd); i++) {
+    if (supportedI2Ccmd[i] == cmdRcvd) {
+      fcnt = i;
+    }
+  }
+
+  if (fcnt<0){
+    // implement logging error: "command not supported"
+    return;
+  }
+  requestedCmd = cmdRcvd;
 }  
 
 void setup()
@@ -125,42 +85,28 @@ void setup()
     Wire.begin(SLAVE_ADDRESS);
     Wire.onRequest(requestEvent);
     Wire.onReceive(receiveEvent);
-    Serial.begin(9600);
+    Serial.begin(57600);
 
     Serial.println("Hello world");
 
-    /* Initialize our digital pins...
-    */
-    pinMode(ploadPin, OUTPUT);
-    pinMode(clockEnablePin, OUTPUT);
-    pinMode(clockPin, OUTPUT);
-    pinMode(dataPin, INPUT);
-
-    digitalWrite(clockPin, LOW);
-    digitalWrite(ploadPin, HIGH);
-
-    /* Read in and display the pin states at startup.
-    */
-    pinValues = read_shift_regs();
-    display_pin_values();
-    oldPinValues = pinValues;
+    buttons.setup();
 }
 
 void loop()
 {
     /* Read the state of all zones.
     */
-    pinValues = read_shift_regs();
+    buttons.pinValues = buttons.read_shift_regs();
 
     /* If there was a chage in state, display which ones changed.
     */
-    if(pinValues != oldPinValues)
+    if(buttons.pinValues != buttons.oldPinValues)
     {
         Serial.print("*Pin value change detected*\r\n");
-        display_pin_values();
-        oldPinValues = pinValues;
+        buttons.display_pin_values();
+        buttons.oldPinValues = buttons.pinValues;
     }
-
+    loopI2C();
     delay(POLL_DELAY_MSEC);
 }
 

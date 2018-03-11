@@ -83,5 +83,34 @@ void loop() {
     Serial.print(tenBit);
     Serial.println();
   }
+
+  Wire.beginTransmission(0x35);
+  Wire.write((uint8_t)1);
+  Wire.endTransmission();
+
+  delay(1);
+
+  uint8_t respVals[4];
+  
+  Wire.requestFrom(0x35, 4);
+  for (byte r = 0; r < 4; r++)
+  {
+    if(Wire.available()){ 
+      respVals[r] = (uint8_t)Wire.read();
+    }
+    else{
+      // log or handle error: "missing read"; if you are not going to do so use r index instead of respIoIndex and delete respoIoIndex from this for loop
+      break;
+    }
+  }
+
+  for (int i = 0; i < 4; i ++)
+  {
+    Serial.print("switch bytes: ");  
+    Serial.print(respVals[i], 2);
+    Serial.print(" ");
+  }
+  Serial.println();
+  
   delay(1);
 }
