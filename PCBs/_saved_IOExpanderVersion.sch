@@ -1,0 +1,677 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:IOExpanderVersion-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L MCP23017 U1
+U 1 1 5AB6A483
+P 4900 3450
+F 0 "U1" H 4800 4475 50  0000 R CNN
+F 1 "MCP23017" H 4800 4400 50  0000 R CNN
+F 2 "Housings_SOIC:SOIC-28W_7.5x17.9mm_Pitch1.27mm" H 4950 2500 50  0001 L CNN
+F 3 "" H 5150 4450 50  0001 C CNN
+	1    4900 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Conn_01x04_Male J1
+U 1 1 5AB6A506
+P 1150 3800
+F 0 "J1" H 1150 4000 50  0000 C CNN
+F 1 "Conn_01x04_Male" H 1150 3500 50  0000 C CNN
+F 2 "Connectors_Molex:Molex_PicoBlade_53047-0410_04x1.25mm_Straight" H 1150 3800 50  0001 C CNN
+F 3 "" H 1150 3800 50  0001 C CNN
+	1    1150 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR01
+U 1 1 5AB6A54B
+P 1550 3450
+F 0 "#PWR01" H 1550 3200 50  0001 C CNN
+F 1 "GND" H 1550 3300 50  0000 C CNN
+F 2 "" H 1550 3450 50  0001 C CNN
+F 3 "" H 1550 3450 50  0001 C CNN
+	1    1550 3450
+	0    -1   -1   0   
+$EndComp
+$Comp
+L +3.3V #PWR02
+U 1 1 5AB6A563
+P 1550 3700
+F 0 "#PWR02" H 1550 3550 50  0001 C CNN
+F 1 "+3.3V" H 1550 3840 50  0000 C CNN
+F 2 "" H 1550 3700 50  0001 C CNN
+F 3 "" H 1550 3700 50  0001 C CNN
+	1    1550 3700
+	0    1    1    0   
+$EndComp
+Text Label 1550 3900 2    60   ~ 0
+SDA
+Text Label 1550 4000 2    60   ~ 0
+SCL
+Wire Wire Line
+	1350 3900 1550 3900
+Wire Wire Line
+	1350 4000 1550 4000
+Wire Wire Line
+	1350 3800 1500 3800
+Wire Wire Line
+	1500 3800 1500 3700
+Wire Wire Line
+	1500 3700 1550 3700
+Wire Wire Line
+	1350 3700 1450 3700
+Wire Wire Line
+	1450 3700 1450 3450
+Wire Wire Line
+	1450 3450 1550 3450
+$Comp
+L +3.3V #PWR03
+U 1 1 5AB6A635
+P 4900 1800
+F 0 "#PWR03" H 4900 1650 50  0001 C CNN
+F 1 "+3.3V" H 4900 1940 50  0000 C CNN
+F 2 "" H 4900 1800 50  0001 C CNN
+F 3 "" H 4900 1800 50  0001 C CNN
+	1    4900 1800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 1800 4900 2450
+$Comp
+L GND #PWR04
+U 1 1 5AB6A66F
+P 4900 4600
+F 0 "#PWR04" H 4900 4350 50  0001 C CNN
+F 1 "GND" H 4900 4450 50  0000 C CNN
+F 2 "" H 4900 4600 50  0001 C CNN
+F 3 "" H 4900 4600 50  0001 C CNN
+	1    4900 4600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 4450 4900 4600
+Text Label 5600 3750 2    60   ~ 0
+SCL
+Text Label 5600 3850 2    60   ~ 0
+SDA
+Wire Wire Line
+	5400 3750 5600 3750
+Wire Wire Line
+	5400 3850 5600 3850
+$Comp
+L GND #PWR05
+U 1 1 5AB6A6F2
+P 5700 4250
+F 0 "#PWR05" H 5700 4000 50  0001 C CNN
+F 1 "GND" H 5700 4100 50  0000 C CNN
+F 2 "" H 5700 4250 50  0001 C CNN
+F 3 "" H 5700 4250 50  0001 C CNN
+	1    5700 4250
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5400 4250 5700 4250
+Wire Wire Line
+	5400 4150 5550 4150
+Wire Wire Line
+	5550 4050 5550 4250
+Connection ~ 5550 4250
+Wire Wire Line
+	5400 4050 5550 4050
+Connection ~ 5550 4150
+$Comp
+L C_Small C1
+U 1 1 5AB6A7EC
+P 5150 2000
+F 0 "C1" H 5160 2070 50  0000 L CNN
+F 1 "1uF" H 5160 1920 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 5150 2000 50  0001 C CNN
+F 3 "" H 5150 2000 50  0001 C CNN
+	1    5150 2000
+	-1   0    0    1   
+$EndComp
+$Comp
+L GND #PWR06
+U 1 1 5AB6A8A4
+P 5150 2150
+F 0 "#PWR06" H 5150 1900 50  0001 C CNN
+F 1 "GND" H 5150 2000 50  0000 C CNN
+F 2 "" H 5150 2150 50  0001 C CNN
+F 3 "" H 5150 2150 50  0001 C CNN
+	1    5150 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 1850 4900 1850
+Connection ~ 4900 1850
+Wire Wire Line
+	5150 2150 5150 2100
+Wire Wire Line
+	5150 1850 5150 1900
+$Comp
+L Conn_01x05_Male J2
+U 1 1 5AB6AA8D
+P 9550 1250
+F 0 "J2" H 9550 1550 50  0000 C CNN
+F 1 "Conn_01x05_Male" H 9550 950 50  0000 C CNN
+F 2 "Connectors_Molex:Molex_PicoBlade_53047-0510_05x1.25mm_Straight" H 9550 1250 50  0001 C CNN
+F 3 "" H 9550 1250 50  0001 C CNN
+	1    9550 1250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Conn_01x05_Male J3
+U 1 1 5AB6AAE0
+P 9550 2000
+F 0 "J3" H 9550 2300 50  0000 C CNN
+F 1 "Conn_01x05_Male" H 9550 1700 50  0000 C CNN
+F 2 "Connectors_Molex:Molex_PicoBlade_53047-0510_05x1.25mm_Straight" H 9550 2000 50  0001 C CNN
+F 3 "" H 9550 2000 50  0001 C CNN
+	1    9550 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Conn_01x02_Male J4
+U 1 1 5AB6AB31
+P 9550 2750
+F 0 "J4" H 9550 2850 50  0000 C CNN
+F 1 "Conn_01x02_Male" H 9550 2550 50  0000 C CNN
+F 2 "Connectors_Molex:Molex_PicoBlade_53047-0210_02x1.25mm_Straight" H 9550 2750 50  0001 C CNN
+F 3 "" H 9550 2750 50  0001 C CNN
+	1    9550 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Conn_01x02_Male J5
+U 1 1 5AB6AB9E
+P 9550 3250
+F 0 "J5" H 9550 3350 50  0000 C CNN
+F 1 "Conn_01x02_Male" H 9550 3050 50  0000 C CNN
+F 2 "Connectors_Molex:Molex_PicoBlade_53047-0210_02x1.25mm_Straight" H 9550 3250 50  0001 C CNN
+F 3 "" H 9550 3250 50  0001 C CNN
+	1    9550 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Conn_01x02_Male J6
+U 1 1 5AB6ABFD
+P 9550 3850
+F 0 "J6" H 9550 3950 50  0000 C CNN
+F 1 "Conn_01x02_Male" H 9550 3650 50  0000 C CNN
+F 2 "Connectors_Molex:Molex_PicoBlade_53047-0210_02x1.25mm_Straight" H 9550 3850 50  0001 C CNN
+F 3 "" H 9550 3850 50  0001 C CNN
+	1    9550 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Conn_01x02_Male J7
+U 1 1 5AB6AC86
+P 9550 4350
+F 0 "J7" H 9550 4450 50  0000 C CNN
+F 1 "Conn_01x02_Male" H 9550 4150 50  0000 C CNN
+F 2 "Connectors_Molex:Molex_PicoBlade_53047-0210_02x1.25mm_Straight" H 9550 4350 50  0001 C CNN
+F 3 "" H 9550 4350 50  0001 C CNN
+	1    9550 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Conn_01x03_Male J8
+U 1 1 5AB6ACF5
+P 9550 4950
+F 0 "J8" H 9550 5150 50  0000 C CNN
+F 1 "Conn_01x03_Male" H 9550 4750 50  0000 C CNN
+F 2 "Connectors_Molex:Molex_PicoBlade_53047-0310_03x1.25mm_Straight" H 9550 4950 50  0001 C CNN
+F 3 "" H 9550 4950 50  0001 C CNN
+	1    9550 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Conn_01x03_Male J9
+U 1 1 5AB6AD20
+P 9550 5600
+F 0 "J9" H 9550 5800 50  0000 C CNN
+F 1 "Conn_01x03_Male" H 9550 5400 50  0000 C CNN
+F 2 "Connectors_Molex:Molex_PicoBlade_53047-0310_03x1.25mm_Straight" H 9550 5600 50  0001 C CNN
+F 3 "" H 9550 5600 50  0001 C CNN
+	1    9550 5600
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR07
+U 1 1 5AB6AE1F
+P 10200 1050
+F 0 "#PWR07" H 10200 800 50  0001 C CNN
+F 1 "GND" H 10200 900 50  0000 C CNN
+F 2 "" H 10200 1050 50  0001 C CNN
+F 3 "" H 10200 1050 50  0001 C CNN
+	1    10200 1050
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR08
+U 1 1 5AB6AE49
+P 10200 1800
+F 0 "#PWR08" H 10200 1550 50  0001 C CNN
+F 1 "GND" H 10200 1650 50  0000 C CNN
+F 2 "" H 10200 1800 50  0001 C CNN
+F 3 "" H 10200 1800 50  0001 C CNN
+	1    10200 1800
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR09
+U 1 1 5AB6AE73
+P 10150 2750
+F 0 "#PWR09" H 10150 2500 50  0001 C CNN
+F 1 "GND" H 10150 2600 50  0000 C CNN
+F 2 "" H 10150 2750 50  0001 C CNN
+F 3 "" H 10150 2750 50  0001 C CNN
+	1    10150 2750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR010
+U 1 1 5AB6AED4
+P 10150 3250
+F 0 "#PWR010" H 10150 3000 50  0001 C CNN
+F 1 "GND" H 10150 3100 50  0000 C CNN
+F 2 "" H 10150 3250 50  0001 C CNN
+F 3 "" H 10150 3250 50  0001 C CNN
+	1    10150 3250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR011
+U 1 1 5AB6AEFE
+P 10150 3850
+F 0 "#PWR011" H 10150 3600 50  0001 C CNN
+F 1 "GND" H 10150 3700 50  0000 C CNN
+F 2 "" H 10150 3850 50  0001 C CNN
+F 3 "" H 10150 3850 50  0001 C CNN
+	1    10150 3850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR012
+U 1 1 5AB6AF49
+P 10150 4350
+F 0 "#PWR012" H 10150 4100 50  0001 C CNN
+F 1 "GND" H 10150 4200 50  0000 C CNN
+F 2 "" H 10150 4350 50  0001 C CNN
+F 3 "" H 10150 4350 50  0001 C CNN
+	1    10150 4350
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR013
+U 1 1 5AB6AFD6
+P 10150 4850
+F 0 "#PWR013" H 10150 4600 50  0001 C CNN
+F 1 "GND" H 10150 4700 50  0000 C CNN
+F 2 "" H 10150 4850 50  0001 C CNN
+F 3 "" H 10150 4850 50  0001 C CNN
+	1    10150 4850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR014
+U 1 1 5AB6B016
+P 10150 5500
+F 0 "#PWR014" H 10150 5250 50  0001 C CNN
+F 1 "GND" H 10150 5350 50  0000 C CNN
+F 2 "" H 10150 5500 50  0001 C CNN
+F 3 "" H 10150 5500 50  0001 C CNN
+	1    10150 5500
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9750 1050 10200 1050
+Wire Wire Line
+	9750 1800 10200 1800
+Wire Wire Line
+	9750 2750 10150 2750
+Wire Wire Line
+	9750 3250 10150 3250
+Wire Wire Line
+	9750 3850 10150 3850
+Wire Wire Line
+	9750 4350 10150 4350
+Wire Wire Line
+	9750 4850 10150 4850
+Wire Wire Line
+	9750 5500 10150 5500
+$Comp
+L 24LC256 U2
+U 1 1 5AB6B46F
+P 4900 6300
+F 0 "U2" H 4650 6550 50  0000 C CNN
+F 1 "24LC256" H 4950 6550 50  0000 L CNN
+F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 4950 6050 50  0001 L CNN
+F 3 "" H 4900 6200 50  0001 C CNN
+	1    4900 6300
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR015
+U 1 1 5AB6B67C
+P 4900 6650
+F 0 "#PWR015" H 4900 6400 50  0001 C CNN
+F 1 "GND" H 4900 6500 50  0000 C CNN
+F 2 "" H 4900 6650 50  0001 C CNN
+F 3 "" H 4900 6650 50  0001 C CNN
+	1    4900 6650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 6600 4900 6650
+$Comp
+L +3.3V #PWR016
+U 1 1 5AB6B8FF
+P 4900 5350
+F 0 "#PWR016" H 4900 5200 50  0001 C CNN
+F 1 "+3.3V" H 4900 5490 50  0000 C CNN
+F 2 "" H 4900 5350 50  0001 C CNN
+F 3 "" H 4900 5350 50  0001 C CNN
+	1    4900 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 5350 4900 6000
+$Comp
+L C_Small C2
+U 1 1 5AB6B906
+P 5150 5550
+F 0 "C2" H 5160 5620 50  0000 L CNN
+F 1 "1uF" H 5160 5470 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805_HandSoldering" H 5150 5550 50  0001 C CNN
+F 3 "" H 5150 5550 50  0001 C CNN
+	1    5150 5550
+	-1   0    0    1   
+$EndComp
+$Comp
+L GND #PWR017
+U 1 1 5AB6B90C
+P 5150 5700
+F 0 "#PWR017" H 5150 5450 50  0001 C CNN
+F 1 "GND" H 5150 5550 50  0000 C CNN
+F 2 "" H 5150 5700 50  0001 C CNN
+F 3 "" H 5150 5700 50  0001 C CNN
+	1    5150 5700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 5400 4900 5400
+Connection ~ 4900 5400
+Wire Wire Line
+	5150 5700 5150 5650
+Wire Wire Line
+	5150 5400 5150 5450
+$Comp
+L GND #PWR018
+U 1 1 5AB6BA1C
+P 4400 6400
+F 0 "#PWR018" H 4400 6150 50  0001 C CNN
+F 1 "GND" H 4400 6250 50  0000 C CNN
+F 2 "" H 4400 6400 50  0001 C CNN
+F 3 "" H 4400 6400 50  0001 C CNN
+	1    4400 6400
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4400 6400 4500 6400
+Wire Wire Line
+	4500 6300 4450 6300
+Wire Wire Line
+	4450 6200 4450 6400
+Connection ~ 4450 6400
+Wire Wire Line
+	4500 6200 4450 6200
+Connection ~ 4450 6300
+Text Label 5550 6200 2    60   ~ 0
+SDA
+Text Label 5550 6300 2    60   ~ 0
+SCL
+Wire Wire Line
+	5300 6200 5550 6200
+Wire Wire Line
+	5300 6300 5550 6300
+$Comp
+L Conn_01x04_Male J10
+U 1 1 5AB6BF9B
+P 1150 2800
+F 0 "J10" H 1150 3000 50  0000 C CNN
+F 1 "Conn_01x04_Male" H 1150 2500 50  0000 C CNN
+F 2 "Connectors_Molex:Molex_PicoBlade_53047-0410_04x1.25mm_Straight" H 1150 2800 50  0001 C CNN
+F 3 "" H 1150 2800 50  0001 C CNN
+	1    1150 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR019
+U 1 1 5AB6BFA1
+P 1550 2450
+F 0 "#PWR019" H 1550 2200 50  0001 C CNN
+F 1 "GND" H 1550 2300 50  0000 C CNN
+F 2 "" H 1550 2450 50  0001 C CNN
+F 3 "" H 1550 2450 50  0001 C CNN
+	1    1550 2450
+	0    -1   -1   0   
+$EndComp
+$Comp
+L +3.3V #PWR020
+U 1 1 5AB6BFA7
+P 1550 2700
+F 0 "#PWR020" H 1550 2550 50  0001 C CNN
+F 1 "+3.3V" H 1550 2840 50  0000 C CNN
+F 2 "" H 1550 2700 50  0001 C CNN
+F 3 "" H 1550 2700 50  0001 C CNN
+	1    1550 2700
+	0    1    1    0   
+$EndComp
+Text Label 1550 2900 2    60   ~ 0
+SDA
+Text Label 1550 3000 2    60   ~ 0
+SCL
+Wire Wire Line
+	1350 2900 1550 2900
+Wire Wire Line
+	1350 3000 1550 3000
+Wire Wire Line
+	1350 2800 1500 2800
+Wire Wire Line
+	1500 2800 1500 2700
+Wire Wire Line
+	1500 2700 1550 2700
+Wire Wire Line
+	1350 2700 1450 2700
+Wire Wire Line
+	1450 2700 1450 2450
+Wire Wire Line
+	1450 2450 1550 2450
+NoConn ~ 5400 3050
+NoConn ~ 5400 3150
+Text Label 4200 3550 0    60   ~ 0
+J7A
+Wire Wire Line
+	4200 3550 4400 3550
+Text Label 9950 4450 2    60   ~ 0
+J7A
+Wire Wire Line
+	9750 4450 9950 4450
+Text Label 4200 3650 0    60   ~ 0
+J9B
+Text Label 4200 3750 0    60   ~ 0
+J9A
+Wire Wire Line
+	4200 3650 4400 3650
+Wire Wire Line
+	4200 3750 4400 3750
+Text Label 9950 5600 2    60   ~ 0
+J9A
+Text Label 9950 5700 2    60   ~ 0
+J9B
+Wire Wire Line
+	9750 5600 9950 5600
+Wire Wire Line
+	9750 5700 9950 5700
+Text Label 9950 5050 2    60   ~ 0
+J8B
+Text Label 9950 4950 2    60   ~ 0
+J8A
+Wire Wire Line
+	9750 4950 9950 4950
+Wire Wire Line
+	9750 5050 9950 5050
+Text Label 4200 3850 0    60   ~ 0
+J8B
+Text Label 4200 3950 0    60   ~ 0
+J8A
+Wire Wire Line
+	4200 3850 4400 3850
+Wire Wire Line
+	4200 3950 4400 3950
+Text Label 4200 4050 0    60   ~ 0
+J6
+Wire Wire Line
+	4200 4050 4400 4050
+Text Label 9950 3950 2    60   ~ 0
+J6
+Wire Wire Line
+	9750 3950 9950 3950
+Text Label 9950 1450 2    60   ~ 0
+J2D
+Text Label 9950 1350 2    60   ~ 0
+J2C
+Text Label 9950 1250 2    60   ~ 0
+J2B
+Text Label 9950 1150 2    60   ~ 0
+J2A
+Wire Wire Line
+	9750 1150 9950 1150
+Wire Wire Line
+	9750 1250 9950 1250
+Wire Wire Line
+	9750 1350 9950 1350
+Wire Wire Line
+	9750 1450 9950 1450
+Text Label 4200 4150 0    60   ~ 0
+J2D
+Text Label 4200 4250 0    60   ~ 0
+J2C
+Wire Wire Line
+	4200 4150 4400 4150
+Wire Wire Line
+	4200 4250 4400 4250
+Text Label 4200 3350 0    60   ~ 0
+J2B
+Text Label 4200 3250 0    60   ~ 0
+J2A
+Text Label 4200 3150 0    60   ~ 0
+J3D
+Text Label 4200 3050 0    60   ~ 0
+J3C
+Text Label 4200 2950 0    60   ~ 0
+J3B
+Text Label 4200 2850 0    60   ~ 0
+J3A
+Text Label 9950 1900 2    60   ~ 0
+J3A
+Text Label 9950 2000 2    60   ~ 0
+J3B
+Text Label 9950 2100 2    60   ~ 0
+J3C
+Text Label 9950 2200 2    60   ~ 0
+J3D
+Wire Wire Line
+	4200 2850 4400 2850
+Wire Wire Line
+	4200 2950 4400 2950
+Wire Wire Line
+	4200 3050 4400 3050
+Wire Wire Line
+	4200 3150 4400 3150
+Wire Wire Line
+	4200 3250 4400 3250
+Wire Wire Line
+	4200 3350 4400 3350
+Wire Wire Line
+	9750 1900 9950 1900
+Wire Wire Line
+	9750 2000 9950 2000
+Wire Wire Line
+	9750 2100 9950 2100
+Wire Wire Line
+	9750 2200 9950 2200
+Text Label 9950 2850 2    60   ~ 0
+J4
+Wire Wire Line
+	9750 2850 9950 2850
+Text Label 9950 3350 2    60   ~ 0
+J5
+Wire Wire Line
+	9750 3350 9950 3350
+Text Label 4200 2750 0    60   ~ 0
+J4
+Text Label 4200 2650 0    60   ~ 0
+J5
+Wire Wire Line
+	4200 2750 4400 2750
+Wire Wire Line
+	4200 2650 4400 2650
+$Comp
+L +3.3V #PWR021
+U 1 1 5AB71720
+P 5600 2650
+F 0 "#PWR021" H 5600 2500 50  0001 C CNN
+F 1 "+3.3V" H 5600 2790 50  0000 C CNN
+F 2 "" H 5600 2650 50  0001 C CNN
+F 3 "" H 5600 2650 50  0001 C CNN
+	1    5600 2650
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5400 2650 5600 2650
+$EndSCHEMATC
