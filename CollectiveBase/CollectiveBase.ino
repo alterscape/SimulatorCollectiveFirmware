@@ -26,9 +26,7 @@ Adafruit_MCP23017 io;
 const double angleMin = 162.0;
 const double angleMax = 208.0;
 
-int count = 0;
-
-uint16_t prevSwitchState = 0;
+uint16_t prev_switch_state = 0;
 
 
 void setup() {
@@ -37,9 +35,16 @@ void setup() {
   Serial.begin(9600);
   while (!Serial) ; //wait until Serial ready
 
-  //Start Wire object. Unneeded here as this is done (optionnaly) by AMS_AS5048B object (see lib code - #define USE_WIREBEGIN_ENABLED)
-  //Wire.begin();
+  //Start Wire object. Unneeded here as this is done (optionally) by AMS_AS5048B object (see lib code - #define USE_WIREBEGIN_ENABLED)
+  Wire.begin();
 
+  //SetupAMS5048B();
+
+  SetupIO();
+}
+
+void SetupAMS5048B()
+{
   //init AMS_AS5048B object
   mysensor.begin();
 
@@ -48,7 +53,10 @@ void setup() {
 
   //set the 0 to the sensorr
   //mysensor.zeroRegW(0x0);
+}
 
+void SetupIO()
+{  
   // set up the IO expander..
   io.begin();
   for (int i = 0; i < 16; i++)
@@ -57,19 +65,12 @@ void setup() {
   }
 }
 
-
-void loop() {
-
-  //prints to serial the read angle in degree and its average every 2 seconds
+uint16_t SampleAMS5048B()
+{
+  static uint16_t count;
+    //prints to serial the read angle in degree and its average every 2 seconds
   //prints 2 times the exact same angle - only one measurement
   mysensor.updateMovingAvgExp();
-
-
-  //Serial.print("Angle degree : ");
-  //Serial.println(mysensor.angleR(U_DEG, false), DEC);
-
-  //Serial.print("Average ");
-  //Serial.println(mysensor.getMovingAvgExp(U_DEG), DEC);
 
   //double angle = mysensor.angleR(U_DEG, false);
   double angle = mysensor.getMovingAvgExp(U_DEG);;
@@ -78,72 +79,55 @@ void loop() {
   if (scaled > 1.0) scaled = 1.0;
   if (scaled < 0.0) scaled = 0.0;
 
-  uint16_t tenBit = (uint16_t)(scaled * 1024.0);
-
-  Joystick.X(tenBit);
-
+  uint16_t ten_bit = (uint16_t)(scaled * 1024.0);
   count++;
-  if (count % 15 == 0)
+  if (count % 50 == 0)
   {
     Serial.print(angle);
     Serial.print(" ");
     Serial.print(scaled);
     Serial.print(" ");
-    Serial.print(tenBit);
+    Serial.print(ten_bit);
     Serial.println();
   }
 
-  uint16_t switchState = io.readGPIOAB();
+  return ten_bit;
+}
 
-
-  if (switchState != prevSwitchState)
+void UpdateButtons()
+{
+  uint16_t switch_state = io.readGPIOAB();
+  uint16_t changes = switch_state ^ prev_switch_state;
+  if (changes != 0)
   {
+    Serial.print( switch_state, 2 );
+    Serial.print("\t");
+    Serial.print( changes,2 );
+    Serial.println();
     for (int i = 0; i < 16; i++)
     {
       int mask = 1 << i;
-      if (((switchState & mask) | (prevSwitchState & mask)) != 0)
+      if ( ( changes & mask ) != 0 )
       {
-        int newState = (switchState >> i) | 0x0001;
-        Joystick.button(i, newState);
+        int new_state = (switch_state & mask) == 0;
+        Joystick.button(i + 1, new_state);
+        Serial.print("\t");
+        Serial.print(i);
+        Serial.print(" ");
+        Serial.print(new_state ? "down" : "up");
+        Serial.println();
       }
       
-    }
-    
-    Serial.print(switchState,2);
-    Serial.println();
-    prevSwitchState = switchState;
+    }   
   }
+  prev_switch_state = switch_state;
+  //Serial.print(switchState, 2);
+  //Serial.println();
+}
 
-  
-  
-//
-//  Wire.beginTransmission(0x35);
-//  Wire.write((uint8_t)1);
-//  Wire.endTransmission();
-//
-//  delay(1);
-//
-//  uint8_t respVals[4];
-//
-//  Wire.requestFrom(0x35, 4);
-//  for (byte r = 0; r < 4; r++)
-//  {
-//    if (Wire.available()) {
-//      respVals[r] = (uint8_t)Wire.read();
-//    }
-//    else {
-//      // log or handle error: "missing read"; if you are not going to do so use r index instead of respIoIndex and delete respoIoIndex from this for loop
-//      break;
-//    }
-//  }
-//
-//  for (int i = 0; i < 4; i ++)
-//  {
-//    Serial.print("switch bytes: ");
-//    Serial.print(respVals[i], 2);
-//    Serial.print(" ");
-//  }
-//  Serial.println();
-
-  delay(1);
+void loop() 
+{
+  //Joystick.X(SampleAMS5048B());
+  UpdateButtons();
+  delay(100);
 }
