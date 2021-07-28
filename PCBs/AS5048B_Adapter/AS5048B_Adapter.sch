@@ -1,0 +1,203 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector:Conn_01x04_Female J1
+U 1 1 60D0B190
+P 1550 2150
+F 0 "J1" H 1442 1725 50  0000 C CNN
+F 1 "Conn_01x04_Female" H 1442 1816 50  0000 C CNN
+F 2 "Connectors_Molex:Molex_PicoBlade_53047-0410_04x1.25mm_Straight" H 1550 2150 50  0001 C CNN
+F 3 "~" H 1550 2150 50  0001 C CNN
+	1    1550 2150
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x08_Female J2
+U 1 1 60D0D492
+P 4450 2050
+F 0 "J2" H 4478 2026 50  0000 L CNN
+F 1 "Conn_01x08_Female" H 4478 1935 50  0000 L CNN
+F 2 "Connectors_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 4450 2050 50  0001 C CNN
+F 3 "~" H 4450 2050 50  0001 C CNN
+	1    4450 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0101
+U 1 1 60D0E3EB
+P 3950 1750
+F 0 "#PWR0101" H 3950 1600 50  0001 C CNN
+F 1 "+3V3" V 3965 1878 50  0000 L CNN
+F 2 "" H 3950 1750 50  0001 C CNN
+F 3 "" H 3950 1750 50  0001 C CNN
+	1    3950 1750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0102
+U 1 1 60D0E71D
+P 3950 2450
+F 0 "#PWR0102" H 3950 2200 50  0001 C CNN
+F 1 "GND" V 3955 2322 50  0000 R CNN
+F 2 "" H 3950 2450 50  0001 C CNN
+F 3 "" H 3950 2450 50  0001 C CNN
+	1    3950 2450
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3950 1750 4100 1750
+Wire Wire Line
+	3950 2450 4250 2450
+Wire Wire Line
+	4100 1750 4100 1850
+Wire Wire Line
+	4100 1850 4250 1850
+Connection ~ 4100 1750
+Wire Wire Line
+	4100 1750 4250 1750
+Text Label 3900 2150 0    50   ~ 0
+SCL
+Text Label 3900 2050 0    50   ~ 0
+SDA
+Wire Wire Line
+	3900 2050 4250 2050
+Wire Wire Line
+	3900 2150 4250 2150
+$Comp
+L power:GND #PWR0103
+U 1 1 60D0F83A
+P 1950 2250
+F 0 "#PWR0103" H 1950 2000 50  0001 C CNN
+F 1 "GND" V 1955 2122 50  0000 R CNN
+F 2 "" H 1950 2250 50  0001 C CNN
+F 3 "" H 1950 2250 50  0001 C CNN
+	1    1950 2250
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+3V3 #PWR0104
+U 1 1 60D0FB8A
+P 1950 2150
+F 0 "#PWR0104" H 1950 2000 50  0001 C CNN
+F 1 "+3V3" V 1965 2278 50  0000 L CNN
+F 2 "" H 1950 2150 50  0001 C CNN
+F 3 "" H 1950 2150 50  0001 C CNN
+	1    1950 2150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1750 2150 1950 2150
+Wire Wire Line
+	1750 2250 1950 2250
+Text Label 2050 2050 2    50   ~ 0
+SCL
+Text Label 2050 1950 2    50   ~ 0
+SDA
+Wire Wire Line
+	2050 2050 1750 2050
+Wire Wire Line
+	2050 1950 1750 1950
+Text Label 3000 2800 2    50   ~ 0
+A1
+Text Label 3000 4100 2    50   ~ 0
+A2
+Text Label 3900 2250 0    50   ~ 0
+A1
+Text Label 3900 2350 0    50   ~ 0
+A2
+Wire Wire Line
+	3900 2250 4250 2250
+Wire Wire Line
+	3900 2350 4250 2350
+Wire Wire Line
+	2750 2800 3000 2800
+Wire Wire Line
+	2750 4100 3000 4100
+$Comp
+L power:+3V3 #PWR0105
+U 1 1 60D13E65
+P 2600 2450
+F 0 "#PWR0105" H 2600 2300 50  0001 C CNN
+F 1 "+3V3" H 2615 2623 50  0000 C CNN
+F 2 "" H 2600 2450 50  0001 C CNN
+F 3 "" H 2600 2450 50  0001 C CNN
+	1    2600 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2600 2450 2600 2600
+$Comp
+L power:+3V3 #PWR0106
+U 1 1 60D1437C
+P 2600 3800
+F 0 "#PWR0106" H 2600 3650 50  0001 C CNN
+F 1 "+3V3" H 2615 3973 50  0000 C CNN
+F 2 "" H 2600 3800 50  0001 C CNN
+F 3 "" H 2600 3800 50  0001 C CNN
+	1    2600 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2600 3800 2600 3900
+$Comp
+L power:GND #PWR0107
+U 1 1 60D178B8
+P 2600 3100
+F 0 "#PWR0107" H 2600 2850 50  0001 C CNN
+F 1 "GND" H 2605 2927 50  0000 C CNN
+F 2 "" H 2600 3100 50  0001 C CNN
+F 3 "" H 2600 3100 50  0001 C CNN
+	1    2600 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0108
+U 1 1 60D17AC8
+P 2600 4400
+F 0 "#PWR0108" H 2600 4150 50  0001 C CNN
+F 1 "GND" H 2605 4227 50  0000 C CNN
+F 2 "" H 2600 4400 50  0001 C CNN
+F 3 "" H 2600 4400 50  0001 C CNN
+	1    2600 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2600 3000 2600 3100
+Wire Wire Line
+	2600 4300 2600 4400
+$Comp
+L Jumper:SolderJumper_3_Bridged12 JP1
+U 1 1 60D18758
+P 2600 2800
+F 0 "JP1" V 2646 2868 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged12" V 2555 2868 50  0000 L CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_Pad1.0x1.5mm" H 2600 2800 50  0001 C CNN
+F 3 "~" H 2600 2800 50  0001 C CNN
+	1    2600 2800
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Jumper:SolderJumper_3_Bridged12 JP2
+U 1 1 60D1BAF0
+P 2600 4100
+F 0 "JP2" V 2646 4168 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged12" V 2555 4168 50  0000 L CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_Pad1.0x1.5mm" H 2600 4100 50  0001 C CNN
+F 3 "~" H 2600 4100 50  0001 C CNN
+	1    2600 4100
+	0    -1   -1   0   
+$EndComp
+$EndSCHEMATC
